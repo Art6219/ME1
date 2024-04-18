@@ -14,6 +14,9 @@ def plot(coord, conect, ne, nn, U):
         xn.append(coord[i][0] + U[2*i])
         yn.append(coord[i][1] + U[2*i + 1])
 
+        plt.scatter(coord[i][0], coord[i][1], color = 'blue')
+        plt.text(coord[i][0], coord[i][1], i + 1, fontweight = 1000)
+
     # Organiza os pontos dos elementos originais e finais
     for i in range(ne):
 

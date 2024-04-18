@@ -10,7 +10,7 @@ def pre_proc(coord, conect, ne):
     # Calcula o comprimento e rotação de cada elemento
     for i in range(ne):
 
-        # Cria os nós do elemento
+        # Seleciona os nós do elemento
         node1 = conect[i][0]
         node2 = conect[i][1]
 

@@ -4,7 +4,7 @@ from pre_proc import pre_proc
 from matriz_rigidez import matriz_rigidez
 from forca import forca
 from cc_lagrange import cc_lagrange
-from cc_linha import cc_linha
+from cc_exc_linha import cc_exc_linha
 from esforcos import esforcos
 from plot import plot
 
@@ -72,7 +72,7 @@ def main():
       F = forca(nn, Loads)
 
       Ka, Fa = cc_lagrange(nn, cc, K, F)
-      Kf, Ff = cc_linha(nn, cc, K, F)
+      Kf, Ff = cc_exc_linha(nn, cc, K, F)
 
       Ua = np.linalg.solve(Ka, Fa)
       Ua2 = np.matmul(np.linalg.inv(Kf), Ff)

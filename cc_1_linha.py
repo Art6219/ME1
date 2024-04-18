@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def cc_linha(nn, cc, K, F):
+def cc_1_linha(nn, cc, K, F):
 
     # Seleciona nós com condições de contorno
     dispvect = np.ones((2 * nn, 1), dtype = float)       # Vetor Deslocamento
