@@ -79,12 +79,12 @@ def main():
 
       U = Ua[0: 2*nn]
 
-      # # Pós-Processamento (Cálculo dos Esforços e Tensões nos Elementos)
-      # N = esforcos(ne, conect, VE, VA, Vl, Vr, U)
+      # Pós-Processamento (Cálculo dos Esforços e Tensões nos Elementos)
+      N = esforcos(ne, conect, VE, VA, Vl, Vr, U)
 
-      # Sigma = []
-      # for i in range(len(VA)):
-      #       Sigma.append(N[i]/VA[i])
+      Sigma = []
+      for i in range(len(VA)):
+            Sigma.append(N[i]/VA[i])
 
       # Plot dos resultados
       plot(coord, conect, ne, nn, U)
