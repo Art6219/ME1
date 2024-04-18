@@ -3,20 +3,26 @@ import numpy as np
 
 def cc_1_linha(nn, cc, K, F):
 
-    # Seleciona nós com condições de contorno
-    dispvect = np.ones((2 * nn, 1), dtype = float)       # Vetor Deslocamento
+    # Cria um vetor auxiliar de deslocamento
+    desloc = np.ones((2*nn, 1), dtype = float)
 
     for i in range(len(cc)):
-        dispvect[cc[i][0] * 2 - 1 + cc[i][1], 0] = cc[i][2]
+        desloc[cc[i][0] * 2 - 1 + cc[i][1], 0] = cc[i][2]
 
-    rcdlist = []
-    for j in range(nn * 2):                              # Verifica em quais posições o deslocamento é nulo
-        if dispvect[j, 0] == 0: 
-            rcdlist.append(j)
+    # Seleciona GL com CC
+    GL_cc = []
+    for j in range(2*nn):                           
+        if desloc[j, 0] == 0: 
+            GL_cc.append(j)
 
-    rrgsm = np.delete(K, rcdlist, 0)                      # Simplificação de Linhas Matriz Global
-    crgsm = np.delete(rrgsm, rcdlist, 1)                    # Simplificação de Colunas Matriz Global
-    rgsm = crgsm                                            # Matrizde Rigidez Global Reduzida
-    rforcevect = np.delete(F, rcdlist, 0)           # Matriz de Froças Global Reduzida
+    # Zera as linhas/colunas dos GLs com CC
+    for i in GL_cc:
+        K[i] = np.zeros(len(K[0]))
 
-    return rgsm, rforcevect
+        for j in range(len(K)):
+            K[j][i] = 0
+
+    for i in GL_cc:
+        K[i][i] = 1
+
+    return K, F
