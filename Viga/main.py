@@ -46,21 +46,7 @@ def main(coord, conect, Loads, cc, VE, VA):
       plot(coord, conect, ne, nn, Ua1)
 
 
-      return Ua1, Ua2, Ua3
+      return Ua1, Ua2, Ua3, Sigma
 
-
-Ua1, Ua2, Ua3 = main()
-
-print('Resolução por Lagrange')
-print(Ua1)
-print('------------------------------------------------------')
-print('Resolução excluindo as linhas/colunas com restrições')
-print(Ua2)
-print('------------------------------------------------------')
-print('Resolução zerando linhas/colunas com restrições')
-print(Ua3)
-print('------------------------------------------------------')
-
-plt.show()
 
 
