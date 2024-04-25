@@ -13,7 +13,7 @@ from plot import plot
 
 def main(coord, conect, Loads, cc, VE, VA):
 
-      # Cálculos Iniciais
+      # Cálculos Inciais
       nn = len(coord)               # Número de Nós
       ne = len(conect)              # Número de Elementos
 
