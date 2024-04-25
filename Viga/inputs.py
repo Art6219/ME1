@@ -12,9 +12,11 @@ if Problema == 1:
     
     # Inputs 1
     coord = [[0, 0],              # Coordenadas dos Pontos
-            [1, 0]]
+            [0, 1],
+            [1, 1]]
 
-    conect = [[0, 1]]             # Conectividades
+    conect = [[0, 1],            # Conectividades
+              [1, 2]]             
 
     nn = len(coord)               # Número de Nós
     ne = len(conect)              # Número de Elementos
@@ -31,7 +33,7 @@ if Problema == 1:
         [0, 2, 0],
         [0, 3, 0]]
 
-    Loads = [[1, 2, -1000]]       # Forças [Nó, GL, Valor]
+    Loads = [[2, 2, -1]]       # Forças [Nó, GL, Valor]
 
 
 elif Problema == 2:
