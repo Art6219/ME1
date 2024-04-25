@@ -6,6 +6,9 @@ from rigidez_barra import rigidez_barra
 
 def esforcos(ne, conect, VE, VA, Vl, Vr, U):
 
+    # Cria o vetor dos esforços internos
+    N = np.zeros(ne)
+
     # Loop pelos elementos
     for i in range(ne):
 
@@ -13,20 +16,19 @@ def esforcos(ne, conect, VE, VA, Vl, Vr, U):
         node1 = conect[i][0]
         node2 = conect[i][1]
 
-        # Vetor com os gls GLOBAIS do elemento
+        # Vetor com os GLs globais do elemento
         gls = [2*(node1), 2*(node1) + 1, 2*(node2), 2*(node2) + 1]
 
-        # Vetor de deslocamentos nos nós do elemento e 
-        # ainda no sistema global de referência 
+        # Vetor de deslocamentos nos nós do elemento 
         Uge = U[gls]
 
-        # ângulo do sistema local em relação ao global
+        # Rortação do sistema local em relação ao global
         te = Vr[i]
 
         # Monta a matriz de transformação T
         T = matriz_transformacao(te)
 
-        # Passa Uge para o sistema local de referência
+        # Passa os deslocamentos para o sistema local
         Ule = np.dot(T, Uge)
 
         # Recupera as informações do elemento
@@ -37,11 +39,9 @@ def esforcos(ne, conect, VE, VA, Vl, Vr, U):
         # Monta a matriz de rigidez do elemento no sistema local
         Kle = rigidez_barra(Ee, Ae, Le)
 
-        # Calcula o vetor de forças nodais do elemento 
-        # no sistema local
+        # Calcula o esforço interno do elemento 
         Fle = np.dot(Kle, Ule)
-
-    # Esforço normal interno do elemento é 
-    N = -Fle.copy()
+ 
+        N[i] = -Fle[0]
 
     return N
