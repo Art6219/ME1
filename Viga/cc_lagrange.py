@@ -4,7 +4,7 @@ import numpy as np
 def cc_lagrange(nn, cc, K, F):   
 
     # Número de GLs do problema original
-    n = 2*nn
+    n = 3*nn
 
     # Número de cc essenciais
     m = len(cc)
@@ -26,7 +26,7 @@ def cc_lagrange(nn, cc, K, F):
         CC = cc[i][2]
 
         # Gl global
-        gl = (2*(node) + gll) - 1
+        gl = (3*(node) + gll) - 1
 
         # Posiciona na linha da matriz S
         S[i, gl] = 1

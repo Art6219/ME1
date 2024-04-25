@@ -1,7 +1,7 @@
 import numpy as np
 
 from matriz_transformacao import matriz_transformacao
-from rigidez_barra import rigidez_barra
+from rigidez_portico_plano import rigidez_portico_plano
 
 
 def esforcos(ne, conect, VE, VA, Vl, Vr, U):
@@ -37,7 +37,7 @@ def esforcos(ne, conect, VE, VA, Vl, Vr, U):
         Le = Vl[i]
 
         # Monta a matriz de rigidez do elemento no sistema local
-        Kle = rigidez_barra(Ee, Ae, Le)
+        Kle = rigidez_portico_plano(Ee, Ae, Le)
 
         # Calcula o esforço interno do elemento 
         Fle = np.dot(Kle, Ule)

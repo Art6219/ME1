@@ -4,14 +4,14 @@ import numpy as np
 def cc_exc_linha(nn, cc, K, F):
 
     # Cria um vetor auxiliar de deslocamento
-    desloc = np.ones((2*nn, 1), dtype = float)
+    desloc = np.ones((3*nn, 1), dtype = float)
 
     for i in range(len(cc)):
-        desloc[cc[i][0] * 2 - 1 + cc[i][1], 0] = cc[i][2]
+        desloc[cc[i][0] * 3 - 1 + cc[i][1], 0] = cc[i][2]
 
     # Seleciona GL com CC
     GL_rest = []
-    for j in range(2*nn):                           
+    for j in range(3*nn):                           
         if desloc[j, 0] == 0: 
             GL_rest.append(j)
 

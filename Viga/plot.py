@@ -11,8 +11,8 @@ def plot(coord, conect, ne, nn, U):
     yn = []
     for i in range(nn):
 
-        xn.append(coord[i][0] + U[2*i])
-        yn.append(coord[i][1] + U[2*i + 1])
+        xn.append(coord[i][0] + U[3*i])
+        yn.append(coord[i][1] + U[3*i + 1])
 
         plt.scatter(coord[i][0], coord[i][1], color = 'blue')
         plt.text(coord[i][0], coord[i][1], i + 1, fontweight = 1000)

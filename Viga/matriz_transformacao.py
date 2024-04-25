@@ -8,9 +8,11 @@ def matriz_transformacao(theta):
     c = np.cos(theta)
 
     # Monta a Matriz de Rotação
-    T = np.array([[c, s, 0, 0],
-                  [-s, c, 0, 0],
-                  [0, 0, c, s],
-                  [0, 0, -s, c]])
+    T = np.array([[c, s, 0, 0, 0, 0],
+                  [-s, c, 0, 0, 0, 0],
+                  [0, 0, 1, 0, 0, 0],
+                  [0, 0, 0, c, s, 0],
+                  [0, 0, 0, -s, c, 0],
+                  [0, 0, 0, 0, 0, 1]])
     
     return T
