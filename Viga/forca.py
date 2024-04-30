@@ -1,7 +1,8 @@
 import numpy as np
 
+from matriz_transformacao import matriz_transformacao
 
-def forca(nn, loads, Load_dist, VL, Vr):
+def forca(conect, nn, loads, Load_dist, VL, Vr):
 
     # Cria vetor de forças concentradas
     Fc = np.zeros(3*nn)
@@ -30,7 +31,28 @@ def forca(nn, loads, Load_dist, VL, Vr):
         L = VL[ele]
         theta = Vr[ele]
 
-        # Flata montar o vetor com os calculos prontos, transformar de local para global e somar com força_concentrada
+        # Monta o vetor local Fqe
+        Fdn = [0,  (3*L*q2 + 7*L*q1)/20, (2*L**2*q2 + 3*L**2*q1)/60, 0, (7*L*q2 + 3*L*q1)/20, -((3*L**2*q2 + 2*L**2*q1)/60)]
+
+        # Monta a matriz de transformação T
+        T = matriz_transformacao(theta)
+
+        # Rotaciona do sistema local para o global
+        # usa T transposto pois estamos passando 
+        # do local para o global
+        Fqge = np.dot(T.transpose(), Fdn)
+
+        # Recupera os nós do elemento
+        node1 = conect[ele][0]
+        node2 = conect[ele][1]
+
+        # Vetor com os gls GLOBAIS do elemento
+        gls = [3*(node1), 3*(node1) + 1, 3*(node1) + 2, 3*(node2), 3*(node2) + 1, 3*(node2) + 2]
+
+        # Sobrepoe Fqge nas posições globais de Fq
+        for j in gls:
+            Fd[j] = Fd[j] + Fqge[gls.index(j)]
 
     F = Fc + Fd
+
     return F

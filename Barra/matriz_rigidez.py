@@ -4,7 +4,7 @@ from rigidez_barra import rigidez_barra
 from matriz_transformacao import matriz_transformacao
 
 
-def matriz_rigidez(nn, ne, conect, VE, VA, Vl, Vr):
+def matriz_rigidez(nn, ne, conect, VE, VA, VL, Vr):
 
     # Cria a Matriz de Rigidez Global
     K = np.zeros((2*nn, 2*nn))
@@ -15,7 +15,7 @@ def matriz_rigidez(nn, ne, conect, VE, VA, Vl, Vr):
         # Recupera dados do elemento
         E = VE[i]
         A = VA[i]
-        L = Vl[i]
+        L = VL[i]
         theta = Vr[i]
 
         # Matriz de Rigidez Local

@@ -4,7 +4,7 @@ from matriz_transformacao import matriz_transformacao
 from rigidez_barra import rigidez_barra
 
 
-def esforcos(ne, conect, VE, VA, Vl, Vr, U):
+def esforcos(ne, conect, VE, VA, VL, Vr, U):
 
     # Cria o vetor dos esforços internos
     N = np.zeros(ne)
@@ -34,7 +34,7 @@ def esforcos(ne, conect, VE, VA, Vl, Vr, U):
         # Recupera as informações do elemento
         Ee = VE[i]
         Ae = VA[i]
-        Le = Vl[i]
+        Le = VL[i]
 
         # Monta a matriz de rigidez do elemento no sistema local
         Kle = rigidez_barra(Ee, Ae, Le)

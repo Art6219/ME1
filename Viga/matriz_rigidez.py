@@ -4,7 +4,7 @@ from rigidez_portico_plano import rigidez_portico_plano
 from matriz_transformacao import matriz_transformacao
 
 
-def matriz_rigidez(nn, ne, conect, VE, VA, VI, Vl, Vr):
+def matriz_rigidez(nn, ne, conect, VE, VA, VI, VL, Vr):
 
     # Cria a Matriz de Rigidez Global
     K = np.zeros((3*nn, 3*nn))
@@ -16,7 +16,7 @@ def matriz_rigidez(nn, ne, conect, VE, VA, VI, Vl, Vr):
         E = VE[i]
         A = VA[i]
         I = VI[i]
-        L = Vl[i]
+        L = VL[i]
         theta = Vr[i]
 
         # Matriz de Rigidez Local
@@ -33,11 +33,11 @@ def matriz_rigidez(nn, ne, conect, VE, VA, VI, Vl, Vr):
         node2 = conect[i][1]
 
         # Vetor dos Graus de Liberdade Globais do Elemento
-        gls = [3*(node1) + 1, 3*(node1) + 2, 3*(node1) + 3, 3*(node2) + 1, 3*(node2) + 2, 3*(node2) + 3]
+        gls = [3*(node1), 3*(node1) + 1, 3*(node1) + 2, 3*(node2), 3*(node2) + 1, 3*(node2) + 2]
 
         # Atualiza Matriz de Rigidez Global
         for i in gls:
             for j in gls:
-                K[i - 1, j - 1] += Kg[gls.index(i), gls.index(j)]
+                K[i, j] += Kg[gls.index(i), gls.index(j)]
     
     return K

@@ -33,9 +33,9 @@ if Problema == 1:
         [0, 2, 0],
         [0, 3, 0]]
 
-    Loads = [[2, 2, -1]]       # Forças [Nó, GL, Valor]
+    Loads = [[2, 2, 0.5]]       # Forças [Nó, GL, Valor]
 
-    Load_dist = [[1, 0.5, 2]]   # Forças distribuidas [Elemento, q1, q2]
+    Load_dist = [[0, 0, 0]]   # Forças distribuidas [Elemento, q1, q2]
 
 
 elif Problema == 2:

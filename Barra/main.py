@@ -18,10 +18,10 @@ def main(coord, conect, Loads, cc, VE, VA):
       ne = len(conect)              # Número de Elementos
 
       # Pré-Processamento (Cálculo do comprimento e rotação dos elementos)
-      Vl, Vr = pre_proc(coord, conect, ne)
+      VL, Vr = pre_proc(coord, conect, ne)
 
       # Processamento (Matriz de Rigidez Global, Vetor de Forças e Vetor de Deslocamentos)
-      K = matriz_rigidez(nn, ne, conect, VE, VA, Vl, Vr)
+      K = matriz_rigidez(nn, ne, conect, VE, VA, VL, Vr)
 
       F = forca(nn, Loads)
 
@@ -36,7 +36,7 @@ def main(coord, conect, Loads, cc, VE, VA):
       Ua3 = np.matmul(np.linalg.inv(Kn), Fn)
 
       # Pós-Processamento (Cálculo dos Esforços e Tensões nos Elementos)
-      N = esforcos(ne, conect, VE, VA, Vl, Vr, Ua1)
+      N = esforcos(ne, conect, VE, VA, VL, Vr, Ua1)
 
       Sigma = []
       for i in range(len(VA)):

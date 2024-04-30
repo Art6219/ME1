@@ -4,7 +4,7 @@ import numpy as np
 def pre_proc(coord, conect, ne):
 
     # Cria os vetores de comprimento e rotação
-    Vl = np.zeros(ne)
+    VL = np.zeros(ne)
     Vr = np.zeros(ne)
 
     # Calcula o comprimento e rotação de cada elemento
@@ -25,7 +25,7 @@ def pre_proc(coord, conect, ne):
         dx = x2 - x1
         dy = y2 - y1
 
-        Vl[i] = np.sqrt(dx ** 2 + dy ** 2)
+        VL[i] = np.sqrt(dx ** 2 + dy ** 2)
 
         # Calcula a rotação do elemento
         if dx == 0:
@@ -39,4 +39,4 @@ def pre_proc(coord, conect, ne):
             Vr[i] = np.arctan(dy / dx)
 
 
-    return Vl, Vr
+    return VL, Vr
