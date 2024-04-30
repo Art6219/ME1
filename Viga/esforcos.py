@@ -4,7 +4,7 @@ from matriz_transformacao import matriz_transformacao
 from rigidez_portico_plano import rigidez_portico_plano
 
 
-def esforcos(ne, conect, VE, VA, Vl, Vr, U):
+def esforcos(ne, conect, VE, VA, VI, Vl, Vr, U):
 
     # Cria o vetor dos esforços internos
     N = np.zeros(ne)
@@ -17,7 +17,7 @@ def esforcos(ne, conect, VE, VA, Vl, Vr, U):
         node2 = conect[i][1]
 
         # Vetor com os GLs globais do elemento
-        gls = [2*(node1), 2*(node1) + 1, 2*(node2), 2*(node2) + 1]
+        gls = [3*(node1), 3*(node1) + 1, 3*(node1) + 2, 3*(node2), 3*(node2) + 1, 3*(node2) + 2]
 
         # Vetor de deslocamentos nos nós do elemento 
         Uge = U[gls]
@@ -34,10 +34,11 @@ def esforcos(ne, conect, VE, VA, Vl, Vr, U):
         # Recupera as informações do elemento
         Ee = VE[i]
         Ae = VA[i]
+        Ie = VI[i]
         Le = Vl[i]
 
         # Monta a matriz de rigidez do elemento no sistema local
-        Kle = rigidez_portico_plano(Ee, Ae, Le)
+        Kle = rigidez_portico_plano(Ee, Ae, Ie, Le)
 
         # Calcula o esforço interno do elemento 
         Fle = np.dot(Kle, Ule)

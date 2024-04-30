@@ -35,6 +35,8 @@ if Problema == 1:
 
     Loads = [[2, 2, -1]]       # Forças [Nó, GL, Valor]
 
+    Load_dist = [[1, 0.5, 2]]   # Forças distribuidas [Elemento, q1, q2]
+
 
 elif Problema == 2:
 
@@ -42,7 +44,7 @@ elif Problema == 2:
     
 
 # Chama a função main
-Ua1, Ua2, Ua3, Sigma = main(coord, conect, Loads, cc, VE, VA, VI)
+Ua1, Ua2, Ua3, Sigma = main(coord, conect, Loads, Load_dist, cc, VE, VA, VI)
 
 print('Resolução por Lagrange')
 print(Ua1)
