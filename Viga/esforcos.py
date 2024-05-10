@@ -1,48 +1,79 @@
 import numpy as np
 
 from matriz_transformacao import matriz_transformacao
-from rigidez_portico_plano import rigidez_portico_plano
+from matriz_rigidez import matriz_rigidez
 
 
-def esforcos(ne, conect, VE, VA, VI, VL, Vr, U):
+def esforcos(nn, ne, conect, VE, VA, VL, VI, Vr, U, loads_dist):
 
-    # Cria o vetor dos esforços internos
+    # Aloca o vetor de esforços normais
     N = np.zeros(ne)
 
+    # Aloca um vetor de vetores
+    V = []
+    M = []
+
     # Loop pelos elementos
-    for i in range(ne):
+    for ele in range(ne):
 
         # Recupera os nós do elemento
-        node1 = conect[i][0]
-        node2 = conect[i][1]
+        node1 = conect[ele][1]
+        node2 = conect[ele][2]
 
-        # Vetor com os GLs globais do elemento
+        # Vetor com os gls GLOBAIS do elemento
         gls = [3*(node1), 3*(node1) + 1, 3*(node1) + 2, 3*(node2), 3*(node2) + 1, 3*(node2) + 2]
 
-        # Vetor de deslocamentos nos nós do elemento 
+        # Vetor de deslocamentos nos nós do elemento e 
+        # ainda no sistema global de referência 
         Uge = U[gls]
 
-        # Rortação do sistema local em relação ao global
-        te = Vr[i]
+        # ângulo do sistema local em relação ao global
+        te = Vr[ele]
 
         # Monta a matriz de transformação T
         T = matriz_transformacao(te)
 
-        # Passa os deslocamentos para o sistema local
+        # Passa Uge para o sistema local de referência
         Ule = np.dot(T, Uge)
 
         # Recupera as informações do elemento
-        Ee = VE[i]
-        Ae = VA[i]
-        Ie = VI[i]
-        Le = VL[i]
+        Ee = VE[ele]
+        Ie = VI[ele]
+        Ae = VA[ele]
+        Le = VL[ele]
 
         # Monta a matriz de rigidez do elemento no sistema local
-        Kle = rigidez_portico_plano(Ee, Ae, Ie, Le)
+        Kle = matriz_rigidez(nn, ne, conect, VE, VA, VI, VL, Vr)
 
-        # Calcula o esforço interno do elemento 
+        # Calcula o vetor de forças nodais do elemento 
+        # no sistema local
         Fle = np.dot(Kle, Ule)
- 
-        N[i] = -Fle[0]
 
-    return N
+        # Esforço normal interno do elemento é 
+        N[ele] = -Fle[0]
+
+        # Dados para gerar os gráficos dos elementos
+        xe = range(0, Le, 100)
+
+        # Procura se existe alguma informação sobre o elemento
+        # em loads_dist
+        for i in range(len(loads_dist)):
+            if (loads_dist[i][0]) == ele:
+                q1 = loads_dist[i][1]
+                q2 = loads_dist[i][2]
+                break
+
+        # Esforço cortante do elemento
+        fc(x) = -(((q2-q1)*x^2+2*Le*q1*x+2*Fle[2]*Le)/(2*Le))
+        ve = fc.(xe)
+        append!(V, [ve])
+
+        # Momento do elemento
+        fm(x) = ((q2-q1)*x^3+3*Le*q1*x^2+6*Fle[2]*Le*x-6*Fle[3]*Le)/(6*Le)
+        me =  fm.(xe)
+        append!(M,[me])
+
+    end
+
+    # Retorna os esforços em cada elemento
+    return N, V, M
