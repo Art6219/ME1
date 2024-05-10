@@ -48,16 +48,16 @@ if Problema == 1:
 
 # Chama a função main
 # Ua1, Ua2, Ua3, Sigma = main(coord, conect, Loads, cc, VE, Vv, hip, esp)
-Ua1 = main(coord, conect, Loads, cc, VE, Vv, hip, esp)
+Ua1, Ua2, Ua3 = main(coord, conect, Loads, cc, VE, Vv, hip, esp)
 
 print('Resolução por Lagrange')
 print(Ua1)
-# print('------------------------------------------------------')
-# print('Resolução excluindo as linhas/colunas com restrições')
-# print(Ua2)
-# print('------------------------------------------------------')
-# print('Resolução zerando linhas/colunas com restrições')
-# print(Ua3)
+print('------------------------------------------------------')
+print('Resolução excluindo as linhas/colunas com restrições')
+print(Ua2)
+print('------------------------------------------------------')
+print('Resolução zerando linhas/colunas com restrições')
+print(Ua3)
 # print('------------------------------------------------------')
 # print('Tensões nos elementos')
 # print(Sigma)

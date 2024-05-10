@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 from matriz_rigidez import matriz_rigidez
 from forca import forca
 from cc_lagrange import cc_lagrange
-# from cc_exc_linha import cc_exc_linha
-# from cc_1_linha import cc_1_linha
+from cc_exc_linha import cc_exc_linha
+from cc_1_linha import cc_1_linha
 # from esforcos import esforcos
 from plot import plot
 
@@ -25,11 +25,11 @@ def main(coord, conect, Loads, cc, VE, Vv, hip, esp):
       Ua = np.linalg.solve(Ka, Fa)
       Ua1 = Ua[0: 2*nn]
 
-      # Kf, Ff = cc_exc_linha(nn, cc, K, F)
-      # Ua2 = np.matmul(np.linalg.inv(Kf), Ff)
+      Kf, Ff = cc_exc_linha(nn, cc, K, F)
+      Ua2 = np.matmul(np.linalg.inv(Kf), Ff)
 
-      # Kn, Fn = cc_1_linha(nn, cc, K, F)
-      # Ua3 = np.matmul(np.linalg.inv(Kn), Fn)
+      Kn, Fn = cc_1_linha(nn, cc, K, F)
+      Ua3 = np.matmul(np.linalg.inv(Kn), Fn)
 
       # Pós-Processamento (Cálculo dos Esforços e Tensões nos Elementos)
       # N = esforcos(ne, conect, VE, VA, VL, Vr, Ua1)
@@ -42,7 +42,7 @@ def main(coord, conect, Loads, cc, VE, Vv, hip, esp):
       plot(coord, conect, ne, nn, Ua1)
 
       # return Ua1, Ua2, Ua3, Sigma
-      return Ua1
+      return Ua1, Ua2, Ua3
 
 
 
