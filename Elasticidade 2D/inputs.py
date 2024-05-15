@@ -15,22 +15,22 @@ if Problema == 1:
             [3, 0],
             [6, 0],
             [9, 0],
-            [0, 3],
-            [3, 3],
-            [6, 3],
-            [9, 3]]
+            [0, 5],
+            [3, 5],
+            [6, 5],
+            [9, 5]]
 
     conect = [[0, 1, 5, 4],             # Conectividades
               [1, 2, 6, 5],
               [2, 3, 7, 6]]
 
-    esp = 1                             # Espessura
+    esp = 0.05                             # Espessura
 
     nn = len(coord)                     # Número de Nós
     ne = len(conect)                    # Número de Elementos
 
-    E = 100e3                           # Módulo de Elasticidade
-    v = 0                               # Coeficiente de Poisson
+    E = 100                           # Módulo de Elasticidade
+    v = 0.3                               # Coeficiente de Poisson
 
     VE = E * np.ones(ne)
     Vv = v * np.ones(ne)
@@ -42,8 +42,8 @@ if Problema == 1:
           [4, 1, 0],
           [4, 2, 0]]
 
-    Loads = [[3, 1, 10000],                 # Forças [Nó, GL, Valor]
-             [7, 1, 10000]]       
+    Loads = [[3, 1, 1],                 # Forças [Nó, GL, Valor]
+             [7, 1, 1]]       
 
 
 # Chama a função main
