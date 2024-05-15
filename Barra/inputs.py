@@ -1,11 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import sympy as sp
 
 from main import main
 
 
 # Seleciona qual problema será rodado
-Problema = 1
+Problema = 2
 
 # Lista dos problemas
 if Problema == 1:
@@ -25,7 +26,7 @@ if Problema == 1:
     nn = len(coord)               # Número de Nós
     ne = len(conect)              # Número de Elementos
 
-    E = 100e3                     # Módulo de Elasticidade
+    E = 1                     # Módulo de Elasticidade
     A = 1                      # Área da Seção
 
     VE = E * np.ones(ne)
@@ -40,39 +41,83 @@ if Problema == 1:
 
 elif Problema == 2:
     
-    # Inputs 2
     coord = [[0, 0],              # Coordenadas dos Pontos
-                [1, 0],
-                [0.5, np.sin(np.pi/3)]]
-
-    conect = [[0, 2],             # Conectividades
-                [1, 2]]
-
-    E = 60e3                     # Módulo de Elasticidade
+             [9, 0]]
+    
+    conect = [[0, 1]]             # Conectividades
+              
+    E = 1                     # Módulo de Elasticidade
     A = 1                      # Área da Seção
 
     VE = E * np.ones(len(conect))
     VA = A * np.ones(len(conect))
 
-    cc = [[0, 1, 0],
-            [0, 2, 0],              # Condições de Contorno [Nó, GL, Valor]
-            [1, 1, 0],
-            [1, 2, 0]]
+    cc = [[0, 1, 0],        # Condições de Contorno [Nó, GL, Valor]
+          [0, 2, 0],
+          [1, 2, 0]] 
+           
+    Loads = [[1, 1, 2]]       # Forças [Nó, GL, Valor]
 
-    Loads = [[2, 1, 1000]]       # Forças [Nó, GL, Valor]
 
+elif Problema == "trabalho":
+    
+    # Inputs 2
+    coord = [[0, 0],              # Coordenadas dos Pontos
+             [2, 0],
+             [2, 2]]
+
+    conect = [[0, 1],             # Conectividades
+              [1, 2],
+              [0, 2]]
+
+    E = 40e9                     # Módulo de Elasticidade
+    A = 1e-4                      # Área da Seção
+
+    VE = E * np.ones(len(conect))
+    VA = A * np.ones(len(conect))
+
+    cc = [[0, 1, 0],                # Condições de Contorno [Nó, GL, Valor]
+          [0, 2, 0],              
+          [1, 2, 0]]
+
+    Loads = [[2, 1, 5000*np.cos(np.pi/3)],     # Forças [Nó, GL, Valor]
+             [2, 2, 5000*np.sin(np.pi/3)],
+             [1, 1, 2000]]       
+
+    # # Inputs 2
+    # coord = [[0, 0],              # Coordenadas dos Pontos
+    #          [1, 0],
+    #          [1, 1]]
+
+    # conect = [[0, 1],             # Conectividades
+    #           [1, 2],
+    #           [0, 2]]
+
+    # E = sp.symbols("E")                     # Módulo de Elasticidade
+    # A = sp.symbols("A")                      # Área da Seção
+
+    # VE = E * np.ones(len(conect))
+    # VA = A * np.ones(len(conect))
+
+    # cc = [[0, 1, 0],                # Condições de Contorno [Nó, GL, Valor]
+    #       [0, 2, 0],              
+    #       [1, 2, 0]]
+
+    # Loads = [[2, 1, sp.symbols("P")*np.sin(np.pi/4)],     # Forças [Nó, GL, Valor]
+    #          [2, 2, sp.symbols("P")*np.sin(np.pi/4)],
+    #          [1, 1, sp.symbols("F")]] 
 
 # Chama a função main
 Ua1, Ua2, Ua3, Sigma = main(coord, conect, Loads, cc, VE, VA)
 
 print('Resolução por Lagrange')
 print(Ua1)
-print('------------------------------------------------------')
-print('Resolução excluindo as linhas/colunas com restrições')
-print(Ua2)
-print('------------------------------------------------------')
-print('Resolução zerando linhas/colunas com restrições')
-print(Ua3)
+# print('------------------------------------------------------')
+# print('Resolução excluindo as linhas/colunas com restrições')
+# print(Ua2)
+# print('------------------------------------------------------')
+# print('Resolução zerando linhas/colunas com restrições')
+# print(Ua3)
 print('------------------------------------------------------')
 print('Tensões nos elementos')
 print(Sigma)
