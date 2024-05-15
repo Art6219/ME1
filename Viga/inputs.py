@@ -5,7 +5,7 @@ from main import main
 
 
 # Seleciona qual problema será rodado
-Problema = 1
+Problema = "Trabalho"
 
 # Lista dos problemas
 if Problema == 1:
@@ -38,9 +38,36 @@ if Problema == 1:
     Load_dist = [[0, 0, 0]]   # Forças distribuidas [Elemento, q1, q2]
 
 
-elif Problema == 2:
+elif Problema == "Trabalho":
 
-    pass
+    # Inputs 1
+    coord = [[0, 0],              # Coordenadas dos Pontos
+             [1, 0],
+             [2, 0],
+             [2+2*np.cos(np.pi/3), 2*np.sin(np.pi/3)]]
+
+    conect = [[0, 1],            # Conectividades
+              [1, 2],
+              [2, 3]]             
+
+    nn = len(coord)               # Número de Nós
+    ne = len(conect)              # Número de Elementos
+
+    E = 100e3                     # Módulo de Elasticidade
+    A = 1                      # Área da Seção
+    I = 1e-4                    # Momento de Inércia da Seção
+
+    VE = E * np.ones(ne)
+    VA = A * np.ones(ne)
+    VI = I * np.ones(ne)
+
+    cc = [[0, 1, 0],              # Condições de Contorno [Nó, GL, Valor]
+          [0, 2, 0],
+          [1, 2, 0]]
+
+    Loads = [[3, 3, 1]]       # Forças [Nó, GL, Valor]
+
+    Load_dist = [[2, -0.5, -1]]   # Forças distribuidas [Elemento, q1, q2]
     
 
 # Chama a função main

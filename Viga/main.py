@@ -36,14 +36,17 @@ def main(coord, conect, Loads, Load_dist, cc, VE, VA, VI):
       Ua3 = np.matmul(np.linalg.inv(Kn), Fn)
 
       # Pós-Processamento (Cálculo dos Esforços e Tensões nos Elementos)
-      N = esforcos(ne, conect, VE, VA, VI, VL, Vr, Ua1)
+      N, V, M = esforcos(nn, ne, conect, VE, VA, VL, VI, Vr, Ua1, Load_dist)
 
+      r = 0.01          # PROVISÓRIO Distância ao centroide
       Sigma = []
       for i in range(len(VA)):
-            if i%3 == 0:
-                  Sigma.append(N[i])
-            else:
-                  Sigma.append(N[i]/VA[i])
+
+            s_xx_N = N[i]/VA[i]
+            s_xy_V = max(max(V[i]), abs(min(V[i])))/VA[i]
+            s_xx_M = max(max(M[i]), abs(min(M[i])))*r/VI[i]
+
+            Sigma.append([s_xx_N, s_xy_V, s_xx_M])
 
       # Plot dos resultados
       plot(coord, conect, ne, nn, Ua1)

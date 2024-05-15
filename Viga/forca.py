@@ -24,10 +24,10 @@ def forca(conect, nn, loads, Load_dist, VL, Vr):
     # Monta o vetor de força distribuida global
     for i in range(len(Load_dist)):
 
-        ele = Load_dist[i][0]
-
         q1 = Load_dist[i][1]
         q2 = Load_dist[i][2]
+        ele = Load_dist[i][0]
+
         L = VL[ele]
         theta = Vr[ele]
 
@@ -43,8 +43,8 @@ def forca(conect, nn, loads, Load_dist, VL, Vr):
         Fqge = np.dot(T.transpose(), Fdn)
 
         # Recupera os nós do elemento
-        node1 = conect[ele][0]
-        node2 = conect[ele][1]
+        node1 = conect[i][0]
+        node2 = conect[i][1]
 
         # Vetor com os gls GLOBAIS do elemento
         gls = [3*(node1), 3*(node1) + 1, 3*(node1) + 2, 3*(node2), 3*(node2) + 1, 3*(node2) + 2]
