@@ -10,8 +10,8 @@ Problema = 1
 # Lista dos problemas
 if Problema == 1:
     
-    # Inputs 1
-    coord = [[0, 0],              # Coordenadas dos Pontos
+      # Inputs 1
+      coord = [[0, 0],              # Coordenadas dos Pontos
             [3, 0],
             [6, 0],
             [9, 0],
@@ -20,35 +20,37 @@ if Problema == 1:
             [6, 5],
             [9, 5]]
 
-    conect = [[0, 1, 5, 4],             # Conectividades
-              [1, 2, 6, 5],
-              [2, 3, 7, 6]]
+      conect = [[0, 1, 5, 4],             # Conectividades
+                  [1, 2, 6, 5],
+                  [2, 3, 7, 6]]
 
-    esp = 0.05                             # Espessura
+      ele_type = [1, 1, 1]                # Tipo de elemento (1: isoparamétrico bilinear; 2: bolha; 3: CST)
 
-    nn = len(coord)                     # Número de Nós
-    ne = len(conect)                    # Número de Elementos
+      esp = 0.05                             # Espessura
 
-    E = 100                           # Módulo de Elasticidade
-    v = 0.3                               # Coeficiente de Poisson
+      nn = len(coord)                     # Número de Nós
+      ne = len(conect)                    # Número de Elementos
 
-    VE = E * np.ones(ne)
-    Vv = v * np.ones(ne)
+      E = 100                           # Módulo de Elasticidade
+      v = 0.3                               # Coeficiente de Poisson
 
-    hip = "EPT"                         # Hipótese
+      VE = E * np.ones(ne)
+      Vv = v * np.ones(ne)
 
-    cc = [[0, 1, 0],                    # Condições de Contorno [Nó, GL, Valor]
-          [0, 2, 0],
-          [4, 1, 0],
-          [4, 2, 0]]
+      hip = "EPT"                         # Hipótese
 
-    Loads = [[3, 1, 1],                 # Forças [Nó, GL, Valor]
-             [7, 1, 1]]       
+      cc = [[0, 1, 0],                    # Condições de Contorno [Nó, GL, Valor]
+            [0, 2, 0],
+            [4, 1, 0],
+            [4, 2, 0]]
+
+      Loads = [[3, 1, 1],                 # Forças [Nó, GL, Valor]
+                  [7, 1, 1]]       
 
 
 # Chama a função main
 # Ua1, Ua2, Ua3, Sigma = main(coord, conect, Loads, cc, VE, Vv, hip, esp)
-Ua1, Ua2, Ua3 = main(coord, conect, Loads, cc, VE, Vv, hip, esp)
+Ua1, Ua2, Ua3 = main(coord, conect, Loads, cc, VE, Vv, hip, esp, ele_type)
 
 print('Resolução por Lagrange')
 print(Ua1)

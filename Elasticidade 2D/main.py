@@ -10,14 +10,14 @@ from cc_1_linha import cc_1_linha
 from plot import plot
 
 
-def main(coord, conect, Loads, cc, VE, Vv, hip, esp):
+def main(coord, conect, Loads, cc, VE, Vv, hip, esp, ele_type):
 
       # Cálculos Iniciais
       nn = len(coord)               # Número de Nós
       ne = len(conect)              # Número de Elementos
 
       # Processamento (Matriz de Rigidez Global, Vetor de Forças e Vetor de Deslocamentos)
-      K = matriz_rigidez(nn, ne, coord, conect, VE, Vv, esp, hip)
+      K = matriz_rigidez(nn, ne, coord, conect, VE, Vv, esp, hip, ele_type)
 
       F = forca(nn, Loads)
 
@@ -39,7 +39,7 @@ def main(coord, conect, Loads, cc, VE, Vv, hip, esp):
       #       Sigma.append(N[i]/VA[i])
 
       # Plot dos resultados
-      plot(coord, conect, ne, nn, Ua1)
+      plot(coord, conect, ne, nn, Ua1, ele_type)
 
       # return Ua1, Ua2, Ua3, Sigma
       return Ua1, Ua2, Ua3
