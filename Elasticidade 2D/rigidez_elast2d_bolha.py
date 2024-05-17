@@ -32,12 +32,12 @@ def rigidez_elast2d_bolha(X, Y, esp, E, v, hip):
            K += np.linalg.multi_dot((B.transpose(), C, B))*dJ*esp
 
     # Separa a matriz de rigidez
-    Kaa = K[0:7, 0:7]
-    Kab = K[0:7, 8:-1]
-    Kba = K[8:-1, 0:7]
+    Kaa = K[0:8, 0:8]
+    Kab = K[0:8, 8:-1]
+    Kba = K[8:-1, 0:8]
     Kbb = K[8:-1, 8:-1]
 
     # Monta matriz de rigidez equivalente pelo método de redução de Guyan
-    Ke = Kaa - np.linalg.multi_dot([Kab, np.linalg.inv(Kbb), Kba])
+    Ke = Kaa - np.dot(Kab, np.dot(np.linalg.inv(Kbb), Kba))
 
     return Ke
