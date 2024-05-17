@@ -46,6 +46,9 @@ def plot(coord, conect, ne, nn, U, ele_type):
             x4 = coord[node4][0]
             y4 = coord[node4][1]
 
+            X = [x1, x2, x3, x4, x1]
+            Y = [y1, y2, y3, y4, y1]
+
         elif ele_type[i] == 3:
             x1 = coord[node1][0]
             y1 = coord[node1][1]
@@ -55,6 +58,9 @@ def plot(coord, conect, ne, nn, U, ele_type):
 
             x3 = coord[node3][0]
             y3 = coord[node3][1]
+
+            X = [x1, x2, x3, x1]
+            Y = [y1, y2, y3, y1]
 
         # Coordenadas dos elementos deslocados
         if ele_type[i] == 1 or ele_type[i] == 2:
@@ -70,6 +76,9 @@ def plot(coord, conect, ne, nn, U, ele_type):
             x4d = xn[node4]
             y4d = yn[node4]
 
+            Xd = [x1d, x2d, x3d, x4d, x1d]
+            Yd = [y1d, y2d, y3d, y4d, y1d]
+
         elif ele_type[i] == 3:
             x1d = xn[node1]
             y1d = yn[node1]
@@ -80,6 +89,9 @@ def plot(coord, conect, ne, nn, U, ele_type):
             x3d = xn[node3]
             y3d = yn[node3]
             
-        plt.plot([x1, x2, x3, x4, x1], [y1, y2, y3, y4, y1], color = 'blue')
-        plt.plot([x1d, x2d, x3d, x4d, x1d], [y1d, y2d, y3d, y4d, y1d], color = 'red', linestyle = "--")
+            Xd = [x1d, x2d, x3d, x1d]
+            Yd = [y1d, y2d, y3d, y1d]
+
+        plt.plot(X, Y, color = 'blue')
+        plt.plot(Xd, Yd, color = 'red', linestyle = "--")
 
