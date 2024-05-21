@@ -43,8 +43,8 @@ def forca(conect, nn, loads, Load_dist, VL, Vr):
         Fqge = np.dot(T.transpose(), Fdn)
 
         # Recupera os nós do elemento
-        node1 = conect[i][0]
-        node2 = conect[i][1]
+        node1 = conect[ele][0]
+        node2 = conect[ele][1]
 
         # Vetor com os gls GLOBAIS do elemento
         gls = [3*(node1), 3*(node1) + 1, 3*(node1) + 2, 3*(node2), 3*(node2) + 1, 3*(node2) + 2]

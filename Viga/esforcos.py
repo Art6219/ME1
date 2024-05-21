@@ -11,6 +11,7 @@ def esforcos(nn, ne, conect, VE, VA, VL, VI, Vr, U, loads_dist):
     N = np.zeros(ne)
     V = []
     M = []
+    Xe = []
 
     # Loop pelos elementos
     for i in range(ne):
@@ -55,20 +56,21 @@ def esforcos(nn, ne, conect, VE, VA, VL, VI, Vr, U, loads_dist):
         # Define q2 e q1
         q1 = 0
         q2 = 0
-        for i in range(len(loads_dist)):
-            if (loads_dist[i][0]) == i:
-                q1 = loads_dist[i][1]
-                q2 = loads_dist[i][2]
+        for j in range(len(loads_dist)):
+            if (loads_dist[j][0]) == i:
+                q1 = loads_dist[j][1]
+                q2 = loads_dist[j][2]
                 break
         
         # Calcula o esforço cortante e momento fletor em diversos pontos do elemento
-        fc = lambda x, q2, q1, Fle, L: -(((q2 - q1)*x**2 + 2*L*q1*x + 2*Fle[2]*L)/(2*L))
-        fm = lambda x, q2, q1, Fle, L: ((q2 - q1)*x**3 + 3*L*q1*x**2 + 6*Fle[2]*L*x - 6*Fle[3]*L)/(6*L)
+        fc = lambda x, q2, q1, Fle, L: -(((q2 - q1)*x**2 + 2*L*q1*x + 2*Fle[1]*L)/(2*L))
+        fm = lambda x, q2, q1, Fle, L: ((q2 - q1)*x**3 + 3*L*q1*x**2 + 6*Fle[1]*L*x - 6*Fle[2]*L)/(6*L)
 
         # Monta os vetores do esforço cortante e momento fletor
+        Xe.append(xe)
         V.append(fc(xe, q2, q1, Fle, L))
         M.append(fm(xe, q2, q1, Fle, L))
 
 
-    return N, V, M
+    return N, V, M, Xe
 

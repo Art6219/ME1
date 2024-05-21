@@ -5,6 +5,7 @@ def plot(coord, conect, ne, nn, U):
 
     # Plot
     plt.figure()
+    plt.grid()
 
     # Calcula os nós com os deslocamentos
     xn = []

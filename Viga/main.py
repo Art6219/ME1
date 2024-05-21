@@ -13,6 +13,10 @@ from plot import plot
 
 def main(coord, conect, Loads, Load_dist, cc, VE, VA, VI):
 
+      # Controle
+      plot_mom = True
+      plot_cor = True
+
       # Cálculos Inciais
       nn = len(coord)               # Número de Nós
       ne = len(conect)              # Número de Elementos
@@ -36,7 +40,7 @@ def main(coord, conect, Loads, Load_dist, cc, VE, VA, VI):
       Ua3 = np.matmul(np.linalg.inv(Kn), Fn)
 
       # Pós-Processamento (Cálculo dos Esforços e Tensões nos Elementos)
-      N, V, M = esforcos(nn, ne, conect, VE, VA, VL, VI, Vr, Ua1, Load_dist)
+      N, V, M, Xe = esforcos(nn, ne, conect, VE, VA, VL, VI, Vr, Ua1, Load_dist)
 
       r = 0.01          # PROVISÓRIO Distância ao centroide
       Sigma = []
@@ -49,6 +53,20 @@ def main(coord, conect, Loads, Load_dist, cc, VE, VA, VI):
             Sigma.append([s_xx_N, s_xy_V, s_xx_M])
 
       # Plot dos resultados
+      if plot_mom is True:
+            for i in range(ne):
+                  plt.figure()
+                  plt.grid()
+                  plt.title(f"Fletor Elemento {i + 1}")
+                  plt.plot(Xe[i], M[i])
+
+      if plot_cor is True:
+            for i in range(ne):
+                  plt.figure()
+                  plt.grid()
+                  plt.title(f"Cortante Elemento {i + 1}")
+                  plt.plot(Xe[i], V[i])
+
       plot(coord, conect, ne, nn, Ua1)
 
 
