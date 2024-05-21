@@ -139,7 +139,7 @@ elif Problema == 3:
             [3, 1, 0],
             [3, 2, 0]]
 
-      Loads = [[16, 1, 1]]                 # Forças [Nó, GL, Valor]
+      Loads = [[16, 2, 0.1]]                 # Forças [Nó, GL, Valor]
 
 
 # Chama a função main
