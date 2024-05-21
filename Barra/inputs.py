@@ -6,7 +6,7 @@ from main import main
 
 
 # Seleciona qual problema será rodado
-Problema = 2
+Problema = "trabalho"
 
 # Lista dos problemas
 if Problema == 1:
@@ -42,12 +42,15 @@ if Problema == 1:
 elif Problema == 2:
     
     coord = [[0, 0],              # Coordenadas dos Pontos
-             [9, 0]]
+             [2, 0],
+             [2, 2]]
     
-    conect = [[0, 1]]             # Conectividades
+    conect = [[0, 1],
+              [1, 2],
+              [0, 2]]             # Conectividades
               
-    E = 1                     # Módulo de Elasticidade
-    A = 1                      # Área da Seção
+    E = 205e9                     # Módulo de Elasticidade
+    A = 0.000380031                      # Área da Seção
 
     VE = E * np.ones(len(conect))
     VA = A * np.ones(len(conect))
@@ -56,22 +59,24 @@ elif Problema == 2:
           [0, 2, 0],
           [1, 2, 0]] 
            
-    Loads = [[1, 1, 2]]       # Forças [Nó, GL, Valor]
+    Loads = [[1, 1, 1000],
+             [2, 1, 500*np.cos(50*np.pi/180)],
+             [2, 2, 500*np.sin(50*np.pi/180)]]       # Forças [Nó, GL, Valor]
 
 
 elif Problema == "trabalho":
     
     # Inputs 2
     coord = [[0, 0],              # Coordenadas dos Pontos
-             [2, 0],
-             [2, 2]]
+             [1, 0],
+             [1, 1]]
 
     conect = [[0, 1],             # Conectividades
               [1, 2],
               [0, 2]]
 
-    E = 40e9                     # Módulo de Elasticidade
-    A = 1e-4                      # Área da Seção
+    E = 50e9                     # Módulo de Elasticidade
+    A = 5e-4                      # Área da Seção
 
     VE = E * np.ones(len(conect))
     VA = A * np.ones(len(conect))
@@ -80,9 +85,9 @@ elif Problema == "trabalho":
           [0, 2, 0],              
           [1, 2, 0]]
 
-    Loads = [[2, 1, 5000*np.cos(np.pi/3)],     # Forças [Nó, GL, Valor]
-             [2, 2, 5000*np.sin(np.pi/3)],
-             [1, 1, 2000]]       
+    Loads = [[2, 1, 2000000*np.cos(np.pi/3)],     # Forças [Nó, GL, Valor]
+             [2, 2, 2000000*np.sin(np.pi/3)],
+             [1, 1, 4000000]]       
 
     # # Inputs 2
     # coord = [[0, 0],              # Coordenadas dos Pontos

@@ -40,4 +40,5 @@ def plot(coord, conect, ne, nn, U):
 
         plt.plot([x1, x2], [y1, y2], color = 'blue')
         plt.plot([x1d, x2d], [y1d, y2d], color = 'red', linestyle = "--")
+        plt.grid()
 
