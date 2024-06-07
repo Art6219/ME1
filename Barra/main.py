@@ -46,7 +46,7 @@ def main(coord, conect, Loads, cc, VE, VA):
       plot(coord, conect, ne, nn, Ua1)
 
 
-      return Ua1, Ua2, Ua3, Sigma
+      return Ua1, N
 
 
 

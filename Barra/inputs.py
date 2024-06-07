@@ -64,7 +64,7 @@ elif Problema == 2:
              [2, 2, 500*np.sin(50*np.pi/180)]]       # Forças [Nó, GL, Valor]
 
 
-elif Problema == "trabalho":
+elif Problema == "trabalho_original":
     
     # Inputs 2
     coord = [[0, 0],              # Coordenadas dos Pontos
@@ -89,31 +89,34 @@ elif Problema == "trabalho":
              [2, 2, 2000000*np.sin(np.pi/3)],
              [1, 1, 4000000]]       
 
-    # # Inputs 2
-    # coord = [[0, 0],              # Coordenadas dos Pontos
-    #          [1, 0],
-    #          [1, 1]]
 
-    # conect = [[0, 1],             # Conectividades
-    #           [1, 2],
-    #           [0, 2]]
+elif Problema == "trabalho":
+    
+    # Inputs 2
+    coord = [[0, 0],              # Coordenadas dos Pontos
+             [1, 0],
+             [1, 1]]
 
-    # E = sp.symbols("E")                     # Módulo de Elasticidade
-    # A = sp.symbols("A")                      # Área da Seção
+    conect = [[0, 1],             # Conectividades
+              [1, 2],
+              [0, 2]]
 
-    # VE = E * np.ones(len(conect))
-    # VA = A * np.ones(len(conect))
+    E = 50e9                     # Módulo de Elasticidade
+    A = 5e-4                      # Área da Seção
 
-    # cc = [[0, 1, 0],                # Condições de Contorno [Nó, GL, Valor]
-    #       [0, 2, 0],              
-    #       [1, 2, 0]]
+    VE = E * np.ones(len(conect))
+    VA = A * np.ones(len(conect))
 
-    # Loads = [[2, 1, sp.symbols("P")*np.sin(np.pi/4)],     # Forças [Nó, GL, Valor]
-    #          [2, 2, sp.symbols("P")*np.sin(np.pi/4)],
-    #          [1, 1, sp.symbols("F")]] 
+    cc = [[0, 1, 0],                # Condições de Contorno [Nó, GL, Valor]
+          [0, 2, 0],              
+          [1, 2, 0]]
+
+    Loads = [[2, 1, 20000*np.cos(np.pi/3)],     # Forças [Nó, GL, Valor]
+             [2, 2, 20000*np.sin(np.pi/3)],
+             [1, 1, 40000]]       
 
 # Chama a função main
-Ua1, Ua2, Ua3, Sigma = main(coord, conect, Loads, cc, VE, VA)
+Ua1, N = main(coord, conect, Loads, cc, VE, VA)
 
 print('Resolução por Lagrange')
 print(Ua1)
@@ -124,8 +127,8 @@ print(Ua1)
 # print('Resolução zerando linhas/colunas com restrições')
 # print(Ua3)
 print('------------------------------------------------------')
-print('Tensões nos elementos')
-print(Sigma)
+print('Esforço normal nos elementos')
+print(N)
 print('------------------------------------------------------')
 
 plt.show()
