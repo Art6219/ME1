@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+from att_load_dist import att_load_dist
 from pre_proc import pre_proc
 from matriz_rigidez import matriz_rigidez
 from forca import forca
@@ -14,6 +15,7 @@ from plot import plot
 def main(coord, conect, Loads, Load_dist, cc, VE, VA, VI):
 
       # Controle
+      plot_strut = False
       plot_mom = True
       plot_cor = True
 
@@ -22,6 +24,7 @@ def main(coord, conect, Loads, Load_dist, cc, VE, VA, VI):
       ne = len(conect)              # Número de Elementos
 
       # Pré-Processamento (Cálculo do comprimento e rotação dos elementos)
+      # coord, conect, Load_dist = att_load_dist(coord, conect, Load_dist)
       VL, Vr = pre_proc(coord, conect, ne)
 
       # Processamento (Matriz de Rigidez Global, Vetor de Forças e Vetor de Deslocamentos)
@@ -54,20 +57,25 @@ def main(coord, conect, Loads, Load_dist, cc, VE, VA, VI):
 
       # Plot dos resultados
       if plot_mom is True:
+            L = 0
+            plt.figure()
+            plt.grid()
+            plt.title(f"Momento Fletor")
             for i in range(ne):
-                  plt.figure()
-                  plt.grid()
-                  plt.title(f"Fletor Elemento {i + 1}")
-                  plt.plot(Xe[i], M[i])
+                  plt.plot(Xe[i] + L, M[i])
+                  L += VL[i]
 
       if plot_cor is True:
+            L = 0
+            plt.figure()
+            plt.grid()
+            plt.title(f"Força Cortante")
             for i in range(ne):
-                  plt.figure()
-                  plt.grid()
-                  plt.title(f"Cortante Elemento {i + 1}")
-                  plt.plot(Xe[i], V[i])
+                  plt.plot(Xe[i] + L, V[i])
+                  L += VL[i]
 
-      plot(coord, conect, ne, nn, Ua1)
+      if plot_strut is True:
+            plot(coord, conect, ne, nn, Ua1)
 
 
       return Ua1, Ua2, Ua3, Sigma

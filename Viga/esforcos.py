@@ -62,6 +62,9 @@ def esforcos(nn, ne, conect, VE, VA, VL, VI, Vr, U, loads_dist):
                 q2 = loads_dist[j][2]
                 break
         
+        const_c = [-(q2 - q1)/(2*L), -(2*L*q1)/(2*L), -(2*Fle[1]*L)/(2*L)]
+        const_m = [(q2 - q1)/(6*L), 3*L*q1/(6*L), 6*Fle[1]*L/(6*L), -6*Fle[2]*L/(6*L)]
+
         # Calcula o esforço cortante e momento fletor em diversos pontos do elemento
         fc = lambda x, q2, q1, Fle, L: -(((q2 - q1)*x**2 + 2*L*q1*x + 2*Fle[1]*L)/(2*L))
         fm = lambda x, q2, q1, Fle, L: ((q2 - q1)*x**3 + 3*L*q1*x**2 + 6*Fle[1]*L*x - 6*Fle[2]*L)/(6*L)
