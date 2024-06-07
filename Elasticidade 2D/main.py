@@ -1,12 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from matriz_rigidez import matriz_rigidez
+from rigidez_global import rigidez_global
 from forca import forca
 from cc_lagrange import cc_lagrange
 from cc_exc_linha import cc_exc_linha
 from cc_1_linha import cc_1_linha
-# from esforcos import esforcos
+from pos_proc import pos_proc
 from plot import plot
 
 
@@ -17,7 +17,7 @@ def main(coord, conect, Loads, cc, VE, Vv, hip, esp, ele_type):
       ne = len(conect)              # Número de Elementos
 
       # Processamento (Matriz de Rigidez Global, Vetor de Forças e Vetor de Deslocamentos)
-      K = matriz_rigidez(nn, ne, coord, conect, VE, Vv, esp, hip, ele_type)
+      K = rigidez_global(nn, ne, coord, conect, VE, Vv, esp, hip, ele_type)
 
       F = forca(nn, Loads)
 
@@ -32,17 +32,13 @@ def main(coord, conect, Loads, cc, VE, Vv, hip, esp, ele_type):
       Ua3 = np.matmul(np.linalg.inv(Kn), Fn)
 
       # Pós-Processamento (Cálculo dos Esforços e Tensões nos Elementos)
-      # N = esforcos(ne, conect, VE, VA, VL, Vr, Ua1)
-
-      # Sigma = []
-      # for i in range(len(VA)):
-      #       Sigma.append(N[i]/VA[i])
-
+      eps, sigmas = pos_proc(coord, conect, ele_type, ne, Ua1, VE, Vv, hip)
+      
       # Plot dos resultados
-      plot(coord, conect, ne, nn, Ua1, ele_type)
+      plot(coord, conect, ne, nn, Ua1, ele_type, sigmas)
 
       # return Ua1, Ua2, Ua3, Sigma
-      return Ua1, Ua2, Ua3
+      return Ua1, eps, sigmas
 
 
 
