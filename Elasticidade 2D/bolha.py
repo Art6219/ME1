@@ -25,10 +25,11 @@ def bolha(r, s, X, Y):
     B = np.zeros((3, 12))
 
     # Adiciona as funções adicionais
-    dNr.append(2*r)
+    dNr.append(-2*r)
     dNr.append(0)
+    
     dNs.append(0)
-    dNs.append(2*s)
+    dNs.append(-2*s)
 
     c = 0                    # Coluna da matriz B
 
