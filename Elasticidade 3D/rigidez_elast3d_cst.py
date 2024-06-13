@@ -3,7 +3,7 @@ import numpy as np
 from constitiva import constitutiva
 from B_ti8n import B_ti8n
 
-def rigidez_elast2d_cst(X, Y, esp, E, v, hip):
+def rigidez_elast3d_cst(X, Y, esp, E, v, hip):
 
      # Monta a matriz constitutiva
      C = constitutiva(E, v, hip)
