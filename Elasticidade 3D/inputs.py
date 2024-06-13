@@ -18,11 +18,17 @@ if Problema == 1:
                [1, -1, 1],
                [1, 1, 1],
                [-1, 1, 1],
-               [-1, -1, 1]]
+               [-1, -1, 1],
+               
+               [1, 3, -1],
+               [-1, 3, -1],
+               [1, 3, 1],
+               [-1, 3, 1]]
 
-      conect = [[0, 1, 2, 3, 4, 5, 6, 7]]             # Conectividades
+      conect = [[0, 1, 2, 3, 4, 5, 6, 7],
+                [1, 8, 9, 2, 5, 10, 11, 6]]             # Conectividades
 
-      ele_type = [1]                # Tipo de elemento (1: isoparamétrico bilinear; 2: bolha; 3: CST)
+      ele_type = [2, 2]                # Tipo de elemento (1: isoparamétrico bilinear; 2: bolha; 3: CST)
 
       nn = len(coord)                     # Número de Nós
       ne = len(conect)                    # Número de Elementos
@@ -37,11 +43,13 @@ if Problema == 1:
 
       cc = [[0, 1, 0],                    # Condições de Contorno [Nó, GL, Valor]
             [0, 2, 0],
-            [4, 1, 0],
-            [4, 2, 0]]
+            [0, 3, 0],
+            [1, 1, 0],
+            [1, 2, 0],
+            [1, 3, 0]]
 
-      Loads = [[3, 1, 1],                 # Forças [Nó, GL, Valor]
-               [7, 1, 1]]       
+      Loads = [[6, 2, 0.1],                 # Forças [Nó, GL, Valor]
+               [7, 2, 0.1]]       
       
 elif Problema == 2:
     

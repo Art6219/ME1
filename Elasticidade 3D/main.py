@@ -35,7 +35,7 @@ def main(coord, conect, Loads, cc, VE, Vv, hip, ele_type):
       eps, sigmas = pos_proc(coord, conect, ele_type, ne, Ua1, VE, Vv, hip)
       
       # Plot dos resultados
-      plot(coord, conect, ne, nn, Ua1, ele_type, sigmas)
+      plot(coord, conect, ne, nn, Ua1, sigmas)
 
       # return Ua1, Ua2, Ua3, Sigma
       return Ua1, eps, sigmas
