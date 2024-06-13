@@ -28,7 +28,7 @@ if Problema == 1:
       conect = [[0, 1, 2, 3, 4, 5, 6, 7],
                 [1, 8, 9, 2, 5, 10, 11, 6]]             # Conectividades
 
-      ele_type = [2, 2]                # Tipo de elemento (1: isoparamétrico bilinear; 2: bolha; 3: CST)
+      ele_type = [1, 1]                # Tipo de elemento (1: isoparamétrico trilinear; 2: bolha; 3: CST)
 
       nn = len(coord)                     # Número de Nós
       ne = len(conect)                    # Número de Elementos

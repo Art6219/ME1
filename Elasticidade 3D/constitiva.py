@@ -1,3 +1,5 @@
+import numpy as np
+
 def constitutiva(E, v, hip):
 
     G = E/(2*(1 + v))       # Módulo de Elasticidade Transversal
@@ -23,15 +25,19 @@ def constitutiva(E, v, hip):
     elif hip == '3D':       # Estado 3D
 
         a = 1/E
-        b = v/E
-        G = 2*E*(1 + v)
+        b = -v/E
+        G = E/(2*(1 + v))
         
-        C = [[a, b, b, 0, 0, 0],
-             [b, a, b, 0, 0, 0],
-             [b, b, a, 0, 0, 0],
+        a_inv = (a + b)/(a**2 - 2*b**2 + a*b)
+        b_inv = -b/((a**2 - 2*b**2 + a*b))
+
+        C = [[a_inv, b_inv, b_inv, 0, 0, 0],
+             [b_inv, a_inv, b_inv, 0, 0, 0],
+             [b_inv, b_inv, a_inv, 0, 0, 0],
              [0, 0, 0, G, 0, 0],
              [0, 0, 0, 0, G, 0],
              [0, 0, 0, 0, 0, G]]
         
+
     return C
     
