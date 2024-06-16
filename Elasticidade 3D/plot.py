@@ -7,14 +7,21 @@ from coordenadas import coordenadas
 
 def plot(coord, conect, ne, nn, U, sigmas):
 
+    plot_original = False
+    plot_desloc = True
+    plot_nodes_original = False
+    plot_nodes_desloc = False
+
     cores, sigmaxx = gradient(sigmas)
 
     # Criação da figura deslocada
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
+    if plot_original is True:
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
     
-    figd = plt.figure()
-    axd = figd.add_subplot(111, projection='3d')
+    if plot_desloc is True:
+        figd = plt.figure()
+        axd = figd.add_subplot(111, projection='3d')
     
     # Calcula os nós com os deslocamentos
     coord_desloc = []
@@ -97,42 +104,48 @@ def plot(coord, conect, ne, nn, U, sigmas):
                         [coord_desloc[conect[i][1]], coord_desloc[conect[i][2]], coord_desloc[conect[i][6]], coord_desloc[conect[i][5]]],  # face direita
                         [coord_desloc[conect[i][4]], coord_desloc[conect[i][7]], coord_desloc[conect[i][3]], coord_desloc[conect[i][0]]]]  # face esquerda
         
+        if plot_original is True:
+            # Adicionando as faces ao gráfico
+            ax.add_collection3d(Poly3DCollection(faces, facecolors='cyan', linewidths=1, edgecolors='blue', alpha=0.25))
 
-        # Adicionando as faces ao gráfico
-        ax.add_collection3d(Poly3DCollection(faces, facecolors='cyan', linewidths=1, edgecolors='blue', alpha=0.25))
+            # Adicionando rótulos
+            ax.set_xlabel('X')
+            ax.set_ylabel('Y')
+            ax.set_zlabel('Z')
 
-        # Adicionando rótulos
-        ax.set_xlabel('X')
-        ax.set_ylabel('Y')
-        ax.set_zlabel('Z')
-
-        # Adicionando rótulos aos vértices (nós)
-        for j, (x, y, z) in enumerate(coord):
-            ax.text(x, y, z, f'{j + 1}', color='black', fontsize=10, ha='center', va='center')
-
-
-        # Adicionando as faces ao gráfico
-        axd.add_collection3d(Poly3DCollection(faces_desloc, facecolors='lime', linewidths=1, edgecolors='green', alpha=0.25))
-
-        # Adicionando rótulos
-        axd.set_xlabel('X')
-        axd.set_ylabel('Y')
-        axd.set_zlabel('Z')
-
-        # Adicionando rótulos aos vértices (nós)
-        for j, (x, y, z) in enumerate(coord_desloc):
-            axd.text(x, y, z, f'{j + 1}', color='black', fontsize=10, ha='center', va='center')
+            # Adicionando rótulos aos vértices (nós)
+            if plot_nodes_original is True:
+                for j, (x, y, z) in enumerate(coord):
+                    ax.text(x, y, z, f'{j + 1}', color='black', fontsize=10, ha='center', va='center')
 
 
-    # Ajuste dos limites dos eixos
-    ax.set_xlim([min(X_min) + 0.4*min(X_min), max(X_max) + 0.4*max(X_max)])
-    ax.set_ylim([min(Y_min) + 0.4*min(Y_min), max(Y_max) + 0.4*max(Y_max)])
-    ax.set_zlim([min(Z_min) + 0.4*min(Z_min), max(Z_max) + 0.4*max(Z_max)])
+        if plot_desloc is True:
+            # Adicionando as faces ao gráfico
+            axd.add_collection3d(Poly3DCollection(faces_desloc, facecolors='lime', linewidths=1, edgecolors='green', alpha=0.25))
 
-    # Ajuste dos limites dos eixos
-    axd.set_xlim([min(Xd_min) + 0.4*min(Xd_min), max(Xd_max) + 0.4*max(Xd_max)])
-    axd.set_ylim([min(Yd_min) + 0.4*min(Yd_min), max(Yd_max) + 0.4*max(Yd_max)])
-    axd.set_zlim([min(Zd_min) + 0.4*min(Zd_min), max(Zd_max) + 0.4*max(Zd_max)])
+            # Adicionando rótulos
+            axd.set_xlabel('X')
+            axd.set_ylabel('Y')
+            axd.set_zlabel('Z')
+
+
+            # Adicionando rótulos aos vértices (nós)
+            if plot_nodes_desloc is True:
+                for j, (x, y, z) in enumerate(coord_desloc):
+                    axd.text(x, y, z, f'{j + 1}', color='black', fontsize=10, ha='center', va='center')
+
+
+    if plot_original is True:
+        # Ajuste dos limites dos eixos
+        ax.set_xlim([min(X_min) + 0.4*min(X_min), max(X_max) + 0.4*max(X_max)])
+        ax.set_ylim([min(Y_min) + 0.4*min(Y_min), max(Y_max) + 0.4*max(Y_max)])
+        ax.set_zlim([min(Z_min) + 0.4*min(Z_min), max(Z_max) + 0.4*max(Z_max)])
+
+    if plot_desloc is True:
+        # Ajuste dos limites dos eixos
+        axd.set_xlim([min(Xd_min) + 0.4*min(Xd_min), max(Xd_max) + 0.4*max(Xd_max)])
+        axd.set_ylim([min(Yd_min) + 0.4*min(Yd_min), max(Yd_max) + 0.4*max(Yd_max)])
+        axd.set_zlim([min(Zd_min) + 0.4*min(Zd_min), max(Zd_max) + 0.4*max(Zd_max)])
 
 
     
