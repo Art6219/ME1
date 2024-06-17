@@ -123,19 +123,19 @@ elif Problema == 3:
       Lz = 4
 
       # Núemero de elementos
-      nx = 4    
+      nx = 20    
       ny = 1
-      nz = 8
+      nz = 40
 
       coord, conect = mesh(Lx, Ly, Lz, nx, ny, nz)
 
-      tipo = 1                                        # Tipo de elemento (1: isoparamétrico trilinear; 2: bolha; 3: CST)
+      tipo = 2                                        # Tipo de elemento (1: isoparamétrico trilinear; 2: bolha; 3: CST)
       ele_type = tipo * np.ones(len(conect))                
 
       nn = len(coord)                     # Número de Nós
       ne = len(conect)                    # Número de Elementos
 
-      E = 100                           # Módulo de Elasticidade
+      E = 100000                           # Módulo de Elasticidade
       v = 0                               # Coeficiente de Poisson
 
       VE = E * np.ones(ne)
@@ -172,9 +172,17 @@ I = Ly*Lz**3/12
 v = P*Lx**3/(3*E*I)
 
 print(f"Deslocamentos em x = L")
-for i in desloc:
-      print(Ua1[3*i + 2])
+desloc_mid = []
+for i in range(len(desloc)):
+      # print(f"{i + 1}:{Ua1[3*desloc[i] + 2]}")
+      desloc_mid.append(Ua1[3*desloc[i] + 2])
+
 print('------------------------------------------------------')
+
+print(f"flecha FEM: {desloc_mid[int(len(desloc_mid)/2)]}")
+
+print('------------------------------------------------------')
+
 print(f"flecha analítica: {v}")
 
 # print('Resolução por Lagrange')

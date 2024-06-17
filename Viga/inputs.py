@@ -5,18 +5,16 @@ from main import main
 
 
 # Seleciona qual problema será rodado
-Problema = "Trabalho_10_el"
+Problema = 1
 
 # Lista dos problemas
 if Problema == 1:
     
     # Inputs 1
     coord = [[0, 0],
-             [1, 0],              
-             [2, 0]]             # Coordenadas dos Pontos
+             [0.1, 0]]             # Coordenadas dos Pontos
 
-    conect = [[0, 1],
-              [1, 2]]           # Conectividades            
+    conect = [[0, 1]]           # Conectividades            
                  
 
     nn = len(coord)               # Número de Nós
@@ -26,7 +24,7 @@ if Problema == 1:
     # I = np.pi*0.012**4/64
     E = 100e9                     # Módulo de Elasticidade
     A = 5e-4                      # Área da Seção
-    I = 5e-10                    # Momento de Inércia da Seção
+    I = 5.33333e-12                    # Momento de Inércia da Seção
 
     VE = E * np.ones(ne)
     VA = A * np.ones(ne)
@@ -36,9 +34,9 @@ if Problema == 1:
          [0, 2, 0],
          [0, 3, 0]]              # Condições de Contorno [Nó, GL, Valor]
 
-    Loads = [[2, 3, 50]]       # Forças [Nó, GL, Valor]
+    Loads = [[1, 2, 2]]       # Forças [Nó, GL, Valor]
 
-    Load_dist = [[1, 10, 10]]   # Forças distribuidas [Elemento, q1, q2]
+    Load_dist = [[0, 0, 0]]   # Forças distribuidas [Elemento, q1, q2]
 
 
 elif Problema == "Trabalho_Original":
