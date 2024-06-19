@@ -106,7 +106,7 @@ def plot(coord, conect, ne, nn, U, sigmas):
         
         if plot_original is True:
             # Adicionando as faces ao gráfico
-            ax.add_collection3d(Poly3DCollection(faces, facecolors='cyan', linewidths=1, edgecolors='blue', alpha=0.25))
+            ax.add_collection3d(Poly3DCollection(faces, facecolors='cyan', linewidths=1, edgecolors='blue', alpha=1))
 
             # Adicionando rótulos
             ax.set_xlabel('X')
@@ -121,7 +121,7 @@ def plot(coord, conect, ne, nn, U, sigmas):
 
         if plot_desloc is True:
             # Adicionando as faces ao gráfico
-            axd.add_collection3d(Poly3DCollection(faces_desloc, facecolors='lime', linewidths=1, edgecolors='green', alpha=0.25))
+            axd.add_collection3d(Poly3DCollection(faces_desloc, facecolors='lime', linewidths=1, edgecolors='green', alpha=1))
 
             # Adicionando rótulos
             axd.set_xlabel('X')

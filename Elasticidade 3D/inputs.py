@@ -118,14 +118,22 @@ elif Problema == 2:
 elif Problema == 3:
 
       # Tamanho do paralelepipedo
-      Lx = 8
+      Lx = 100
       Ly = 1
       Lz = 4
 
       # Núemero de elementos
-      nx = 20    
-      ny = 1
-      nz = 40
+      # nx = 20    
+      # ny = 1
+      nz = 6
+
+      ny = int(nz*Ly/(2*Lz))
+      if ny == 0:
+            ny = 1
+
+      nx = int(nz*Lx/(2*Lz))
+      if nx == 0:
+            nx = 1
 
       coord, conect = mesh(Lx, Ly, Lz, nx, ny, nz)
 
@@ -151,10 +159,11 @@ elif Problema == 3:
                   cc.append([i, 3, 0])
 
       # Forças [Nó, GL, Valor]
+      F = 2
       Loads = []
       for i in range(len(coord)):
             if coord[i][0] == Lx and coord[i][2] == Lz:
-                  Loads.append([i, 3, 1])
+                  Loads.append([i, 3, F/(ny + 1)])
 
       desloc = []
       for i in range(len(coord)):
