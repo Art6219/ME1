@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def plot_intern(F, Lx, Ly, Lz, nz, x):
+def plot_intern(F, Lx, Ly, Lz, x, plot_momento, plot_cortante):
 
     # Cálculos prévios
     # x = Lx/2
@@ -19,11 +19,13 @@ def plot_intern(F, Lx, Ly, Lz, nz, x):
     # s_xy.append(12*F/(Ly*Lz**3) * 0.5*(Lz**2/4 - z**2))
     s_xy = 12*F/(Ly*Lz**3) * 0.5*(Lz**2/4 - z**2)
 
-    plt.figure()
-    plt.plot(s_xx, z)
-    plt.grid()
+    if plot_momento is True:
+        plt.figure()
+        plt.plot(s_xx, z)
+        plt.grid()
 
-    plt.figure()
-    plt.plot(s_xy, z)
-    plt.grid()
+    if plot_cortante is True:
+        plt.figure()
+        plt.plot(s_xy, z)
+        plt.grid()
 

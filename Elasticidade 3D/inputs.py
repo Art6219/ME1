@@ -118,6 +118,15 @@ elif Problema == 2:
 
 elif Problema == 3:
 
+      # Controle 
+      plot_original = False
+      plot_desloc = False
+      plot_nodes_original = False
+      plot_nodes_desloc = False
+
+      plot_momento = True
+      plot_cortante = True
+
       # Tamanho do paralelepipedo
       Lx = 100
       Ly = 1
@@ -184,10 +193,10 @@ elif Problema == 3:
 
       x = coord[int(conect[int(tensao_node[0])][0])][0] + (coord[int(conect[int(tensao_node[0])][1])][0] - coord[int(conect[int(tensao_node[0])][0])][0])/2
 
-      plot_intern(F, Lx, Ly, Lz, nz, x)
+      plot_intern(F, Lx, Ly, Lz, x, plot_momento, plot_cortante)
 
 # Chama a função main
-Ua1, eps, sigmas = main(coord, conect, Loads, cc, VE, Vv, hip, ele_type)
+Ua1, eps, sigmas = main(coord, conect, Loads, cc, VE, Vv, hip, ele_type, plot_original, plot_desloc, plot_nodes_original, plot_nodes_desloc)
 
 # Recupera tensão nos nós determinados
 tensao_xx = []

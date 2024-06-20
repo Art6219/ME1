@@ -5,12 +5,7 @@ from gradient import gradient
 from coordenadas import coordenadas
 
 
-def plot(coord, conect, ne, nn, U, sigmas):
-
-    plot_original = False
-    plot_desloc = False
-    plot_nodes_original = False
-    plot_nodes_desloc = False
+def plot(coord, conect, ne, nn, U, sigmas, plot_original, plot_desloc, plot_nodes_original, plot_nodes_desloc):
 
     cores, sigmaxx = gradient(sigmas)
 

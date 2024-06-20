@@ -10,7 +10,7 @@ from pos_proc import pos_proc
 from plot import plot
 
 
-def main(coord, conect, Loads, cc, VE, Vv, hip, ele_type):
+def main(coord, conect, Loads, cc, VE, Vv, hip, ele_type, plot_original, plot_desloc, plot_nodes_original, plot_nodes_desloc):
 
       # Cálculos Iniciais
       nn = len(coord)               # Número de Nós
@@ -35,7 +35,7 @@ def main(coord, conect, Loads, cc, VE, Vv, hip, ele_type):
       eps, sigmas = pos_proc(coord, conect, ele_type, ne, Ua1, VE, Vv, hip)
       
       # Plot dos resultados
-      plot(coord, conect, ne, nn, Ua1, sigmas)
+      plot(coord, conect, ne, nn, Ua1, sigmas, plot_original, plot_desloc, plot_nodes_original, plot_nodes_desloc)
 
 
       return Ua1, eps, sigmas
