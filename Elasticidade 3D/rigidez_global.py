@@ -1,4 +1,5 @@
 import numpy as np
+import scipy as sp
 
 from coordenadas import coordenadas
 from rigidez_local import rigidez_local

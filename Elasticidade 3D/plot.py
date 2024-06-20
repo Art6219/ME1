@@ -8,7 +8,7 @@ from coordenadas import coordenadas
 def plot(coord, conect, ne, nn, U, sigmas):
 
     plot_original = False
-    plot_desloc = True
+    plot_desloc = False
     plot_nodes_original = False
     plot_nodes_desloc = False
 

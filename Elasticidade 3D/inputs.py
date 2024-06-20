@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 
 from main import main
 from mesh import mesh
+from plot_intern import plot_intern
 
 
 # Seleciona qual problema será rodado
@@ -125,7 +126,7 @@ elif Problema == 3:
       # Núemero de elementos
       # nx = 20    
       # ny = 1
-      nz = 6
+      nz = 2
 
       ny = int(nz*Ly/(2*Lz))
       if ny == 0:
@@ -137,7 +138,7 @@ elif Problema == 3:
 
       coord, conect = mesh(Lx, Ly, Lz, nx, ny, nz)
 
-      tipo = 2                                        # Tipo de elemento (1: isoparamétrico trilinear; 2: bolha; 3: CST)
+      tipo = 1                                        # Tipo de elemento (1: isoparamétrico trilinear; 2: bolha; 3: CST)
       ele_type = tipo * np.ones(len(conect))                
 
       nn = len(coord)                     # Número de Nós
@@ -165,34 +166,62 @@ elif Problema == 3:
             if coord[i][0] == Lx and coord[i][2] == Lz:
                   Loads.append([i, 3, F/(ny + 1)])
 
+      # Pós-processamento
       desloc = []
       for i in range(len(coord)):
             if coord[i][0] == Lx:
                   desloc.append(i)
 
+      tensao_node = []
+      for i in range(nz):
+
+            if nx %2 == 0:
+                  a = nx/2
+            else:
+                  a = (nx - 1)/2
+
+            tensao_node.append(int(a + (nx*ny)*i))
+
+      x = coord[int(conect[int(tensao_node[0])][0])][0] + (coord[int(conect[int(tensao_node[0])][1])][0] - coord[int(conect[int(tensao_node[0])][0])][0])/2
+
+      plot_intern(F, Lx, Ly, Lz, nz, x)
 
 # Chama a função main
-# Ua1, Ua2, Ua3, Sigma = main(coord, conect, Loads, cc, VE, Vv, hip, esp)
 Ua1, eps, sigmas = main(coord, conect, Loads, cc, VE, Vv, hip, ele_type)
+
+# Recupera tensão nos nós determinados
+tensao_xx = []
+tensao_xy = []
+for i in tensao_node:
+      tensao_xx.append(sigmas[i][0])
+      tensao_xy.append(sigmas[i][5])
+
+print('------------------------------------------------------')
+print("Sigma xx")
+print(tensao_xx)
+
+print('------------------------------------------------------')
+print("Sigma xy")
+print(tensao_xy)
+
 
 # Cálculo Flecha
 P = 2
 I = Ly*Lz**3/12
 v = P*Lx**3/(3*E*I)
 
+print('------------------------------------------------------')
 print(f"Deslocamentos em x = L")
+
 desloc_mid = []
 for i in range(len(desloc)):
       # print(f"{i + 1}:{Ua1[3*desloc[i] + 2]}")
       desloc_mid.append(Ua1[3*desloc[i] + 2])
 
-print('------------------------------------------------------')
-
 print(f"flecha FEM: {desloc_mid[int(len(desloc_mid)/2)]}")
 
-print('------------------------------------------------------')
-
 print(f"flecha analítica: {v}")
+print('------------------------------------------------------')
 
 # print('Resolução por Lagrange')
 # print(Ua1)

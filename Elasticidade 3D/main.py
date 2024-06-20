@@ -37,7 +37,7 @@ def main(coord, conect, Loads, cc, VE, Vv, hip, ele_type):
       # Plot dos resultados
       plot(coord, conect, ne, nn, Ua1, sigmas)
 
-      # return Ua1, Ua2, Ua3, Sigma
+
       return Ua1, eps, sigmas
 
 

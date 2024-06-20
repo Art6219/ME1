@@ -45,4 +45,4 @@ def rigidez_elast3d_bolha(X, Y, Z, E, v, hip):
     # Monta matriz de rigidez equivalente pelo método de redução de Guyan
     Ke = Kaa - np.dot(Kab, np.dot(np.linalg.inv(Kbb), Kba))
 
-    return Ke
+    return Ke, Kaa, Kab, Kbb

@@ -2,7 +2,7 @@ import numpy as np
 
 from coordenadas import coordenadas
 from gls_globais import gls_globais
-from bolha import bolha
+from B_bolha import B_bolha
 from B_ti8n import B_ti8n
 from constitiva import constitutiva
 
@@ -26,22 +26,13 @@ def pos_proc(coord, conect, ele_type, ne, U, VE, Vv, hip):
         # Vetor dos Graus de Liberdade Globais do Elemento
         gls = gls_globais(nodes)
 
-        # Calculo matriz B
-        if ele_type[i] == 3:
-            x1 = X[0]
-            x2 = X[1]
-            x3 = X[2]
+        if ele_type[i] == 1:
 
-            y1 = Y[0]
-            y2 = Y[1]
-            y3 = Y[2]
-    
-            B = np.array([[-(y3-y2)/((x2-x1)*y3+(x1-x3)*y2+(x3-x2)*y1), 0, (y3-y1)/((x2-x1)*y3+(x1-x3)*y2+(x3-x2)*y1), 0, -(y2-y1)/((x2-x1)*y3+(x1-x3)*y2+(x3-x2)*y1), 0],
-                          [0, (x3-x2)/((x2-x1)*y3+(x1-x3)*y2+(x3-x2)*y1), 0, -(x3-x1)/((x2-x1)*y3+(x1-x3)*y2+(x3-x2)*y1), 0, (x2-x1)/((x2-x1)*y3+(x1-x3)*y2+(x3-x2)*y1)],
-                          [(x3-x2)/((x2-x1)*y3+(x1-x3)*y2+(x3-x2)*y1), -(y3-y2)/((x2-x1)*y3+(x1-x3)*y2+(x3-x2)*y1), -(x3-x1)/((x2-x1)*y3+(x1-x3)*y2+(x3-x2)*y1), (y3-y1)/((x2-x1)*y3+(x1-x3)*y2+(x3-x2)*y1), (x2-x1)/((x2-x1)*y3+(x1-x3)*y2+(x3-x2)*y1), -(y2-y1)/((x2-x1)*y3+(x1-x3)*y2+(x3-x2)*y1)]])
-        
-        else:
             _, B = B_ti8n(0, 0, 0, X, Y, Z)
+        
+        elif ele_type[i] == 2:
+
+            _, B = B_bolha(0, 0, 0, X, Y, Z)
 
         # Vetor de deslocamentos globais nos nós do elemento
         for i in range(len(gls)):
