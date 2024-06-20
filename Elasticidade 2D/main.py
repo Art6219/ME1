@@ -25,11 +25,11 @@ def main(coord, conect, Loads, cc, VE, Vv, hip, esp, ele_type):
       Ua = np.linalg.solve(Ka, Fa)
       Ua1 = Ua[0: 2*nn]
 
-      Kf, Ff = cc_exc_linha(nn, cc, K, F)
-      Ua2 = np.matmul(np.linalg.inv(Kf), Ff)
+      # Kf, Ff = cc_exc_linha(nn, cc, K, F)
+      # Ua2 = np.matmul(np.linalg.inv(Kf), Ff)
 
-      Kn, Fn = cc_1_linha(nn, cc, K, F)
-      Ua3 = np.matmul(np.linalg.inv(Kn), Fn)
+      # Kn, Fn = cc_1_linha(nn, cc, K, F)
+      # Ua3 = np.matmul(np.linalg.inv(Kn), Fn)
 
       # Pós-Processamento (Cálculo dos Esforços e Tensões nos Elementos)
       eps, sigmas = pos_proc(coord, conect, ele_type, ne, Ua1, VE, Vv, hip)
