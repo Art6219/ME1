@@ -5,6 +5,7 @@ from gls_globais import gls_globais
 from B_bolha import B_bolha
 from B_ti8n import B_ti8n
 from constitiva import constitutiva
+from rigidez_elast3d_bolha import rigidez_elast3d_bolha
 
 
 def pos_proc(coord, conect, ele_type, ne, U, VE, Vv, hip):
@@ -26,6 +27,13 @@ def pos_proc(coord, conect, ele_type, ne, U, VE, Vv, hip):
         # Vetor dos Graus de Liberdade Globais do Elemento
         gls = gls_globais(nodes)
 
+        # Vetor de deslocamentos globais nos nós do elemento
+        for j in range(len(gls)):
+            gls[j] = gls[j] - 1
+
+        Uge = U[gls]
+
+        # Calculo matriz B
         if ele_type[i] == 1:
 
             _, B = B_ti8n(0, 0, 0, X, Y, Z)
@@ -34,11 +42,12 @@ def pos_proc(coord, conect, ele_type, ne, U, VE, Vv, hip):
 
             _, B = B_bolha(0, 0, 0, X, Y, Z)
 
-        # Vetor de deslocamentos globais nos nós do elemento
-        for i in range(len(gls)):
-            gls[i] = gls[i] - 1
+            if i == 0:
+                _, Kbb, Kba = rigidez_elast3d_bolha(X, Y, Z, E, v, hip)
 
-        Uge = U[gls]
+            alpha = np.linalg.multi_dot([-np.linalg.inv(Kbb), Kba, Uge])
+
+            Uge = np.concatenate((Uge, alpha))
 
         # Calcula deformação em cada elemento
         e = np.dot(B, Uge)

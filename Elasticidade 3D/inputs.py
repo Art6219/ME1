@@ -120,12 +120,12 @@ elif Problema == 3:
 
       # Controle 
       plot_original = False
-      plot_desloc = False
+      plot_desloc = True
       plot_nodes_original = False
       plot_nodes_desloc = False
 
-      plot_momento = True
-      plot_cortante = True
+      plot_momento = False
+      plot_cortante = False
 
       # Tamanho do paralelepipedo
       Lx = 100
@@ -133,8 +133,6 @@ elif Problema == 3:
       Lz = 4
 
       # Núemero de elementos
-      # nx = 20    
-      # ny = 1
       nz = 2
 
       ny = int(nz*Ly/(2*Lz))
@@ -147,7 +145,7 @@ elif Problema == 3:
 
       coord, conect = mesh(Lx, Ly, Lz, nx, ny, nz)
 
-      tipo = 1                                        # Tipo de elemento (1: isoparamétrico trilinear; 2: bolha; 3: CST)
+      tipo = 2                                        # Tipo de elemento (1: isoparamétrico trilinear; 2: bolha; 3: CST)
       ele_type = tipo * np.ones(len(conect))                
 
       nn = len(coord)                     # Número de Nós
@@ -193,8 +191,6 @@ elif Problema == 3:
 
       x = coord[int(conect[int(tensao_node[0])][0])][0] + (coord[int(conect[int(tensao_node[0])][1])][0] - coord[int(conect[int(tensao_node[0])][0])][0])/2
 
-      plot_intern(F, Lx, Ly, Lz, x, plot_momento, plot_cortante)
-
 # Chama a função main
 Ua1, eps, sigmas = main(coord, conect, Loads, cc, VE, Vv, hip, ele_type, plot_original, plot_desloc, plot_nodes_original, plot_nodes_desloc)
 
@@ -203,7 +199,8 @@ tensao_xx = []
 tensao_xy = []
 for i in tensao_node:
       tensao_xx.append(sigmas[i][0])
-      tensao_xy.append(sigmas[i][5])
+      tensao_xy.append(sigmas[i][4])
+
 
 print('------------------------------------------------------')
 print("Sigma xx")
@@ -213,6 +210,11 @@ print('------------------------------------------------------')
 print("Sigma xy")
 print(tensao_xy)
 
+sigma_xx, sigma_xy = plot_intern(F, Lx, Ly, Lz, x, nz, tensao_xx, tensao_xy, plot_momento, plot_cortante)
+
+print('------------------------------------------------------')
+print(sigma_xx)
+print(sigma_xy)
 
 # Cálculo Flecha
 P = 2

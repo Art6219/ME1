@@ -38,11 +38,11 @@ def rigidez_elast3d_bolha(X, Y, Z, E, v, hip):
 
     # Separa a matriz de rigidez
     Kaa = K[0:24, 0:24]
-    Kab = K[0:24, 24:-1]
-    Kba = K[24:-1, 0:24]
-    Kbb = K[24:-1, 24:-1]
+    Kab = K[0:24, 24:33]
+    Kba = K[24:33, 0:24]
+    Kbb = K[24:33, 24:33]
 
     # Monta matriz de rigidez equivalente pelo método de redução de Guyan
     Ke = Kaa - np.dot(Kab, np.dot(np.linalg.inv(Kbb), Kba))
 
-    return Ke, Kaa, Kab, Kbb
+    return Ke, Kbb, Kba
