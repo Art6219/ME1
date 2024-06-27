@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 
 from rigidez_global import rigidez_global
 from forca import forca
+from forca_corpo import forca_corpo
 from cc_lagrange import cc_lagrange
 from cc_exc_linha import cc_exc_linha
 from cc_1_linha import cc_1_linha
@@ -10,7 +11,7 @@ from pos_proc import pos_proc
 from plot import plot
 
 
-def main(coord, conect, Loads, cc, VE, Vv, hip, ele_type, plot_original, plot_desloc, plot_nodes_original, plot_nodes_desloc):
+def main(coord, conect, Loads, cc, VE, Vv, hip, ele_type, plot_original, plot_desloc, plot_nodes_original, plot_nodes_desloc, peso, rho, g):
 
       # Cálculos Iniciais
       nn = len(coord)               # Número de Nós
@@ -21,6 +22,10 @@ def main(coord, conect, Loads, cc, VE, Vv, hip, ele_type, plot_original, plot_de
 
       F = forca(nn, Loads)
 
+      if peso == True:
+
+            F = forca_corpo(rho, g, conect, coord, F)
+   
       Ka, Fa = cc_lagrange(nn, cc, K, F)
       Ua = np.linalg.solve(Ka, Fa)
       Ua1 = Ua[0: 3*nn]

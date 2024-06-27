@@ -127,9 +127,11 @@ elif Problema == 3:
       plot_momento = False
       plot_cortante = False
 
+      peso = True
+
       # Tamanho do paralelepipedo
-      Lx = 100
-      Ly = 1
+      Lx = 40
+      Ly = 4
       Lz = 4
 
       # Núemero de elementos
@@ -151,13 +153,16 @@ elif Problema == 3:
       nn = len(coord)                     # Número de Nós
       ne = len(conect)                    # Número de Elementos
 
-      E = 100000                           # Módulo de Elasticidade
+      E = 100e9                           # Módulo de Elasticidade
       v = 0                               # Coeficiente de Poisson
 
       VE = E * np.ones(ne)
       Vv = v * np.ones(ne)
 
       hip = "3D"                         # Hipótese
+
+      rho = 1120
+      g = 9.81
 
       cc = []
       for i in range(len(coord)):
@@ -167,7 +172,7 @@ elif Problema == 3:
                   cc.append([i, 3, 0])
 
       # Forças [Nó, GL, Valor]
-      F = 2
+      F = 0
       Loads = []
       for i in range(len(coord)):
             if coord[i][0] == Lx and coord[i][2] == Lz:
@@ -192,7 +197,7 @@ elif Problema == 3:
       x = coord[int(conect[int(tensao_node[0])][0])][0] + (coord[int(conect[int(tensao_node[0])][1])][0] - coord[int(conect[int(tensao_node[0])][0])][0])/2
 
 # Chama a função main
-Ua1, eps, sigmas = main(coord, conect, Loads, cc, VE, Vv, hip, ele_type, plot_original, plot_desloc, plot_nodes_original, plot_nodes_desloc)
+Ua1, eps, sigmas = main(coord, conect, Loads, cc, VE, Vv, hip, ele_type, plot_original, plot_desloc, plot_nodes_original, plot_nodes_desloc, peso, rho, g)
 
 # Recupera tensão nos nós determinados
 tensao_xx = []
@@ -220,6 +225,7 @@ print(sigma_xy)
 P = 2
 I = Ly*Lz**3/12
 v = P*Lx**3/(3*E*I)
+v_peso = -12/8*rho*g*Lx**4/(E*Lz**2)
 
 print('------------------------------------------------------')
 print(f"Deslocamentos em x = L")
@@ -231,7 +237,7 @@ for i in range(len(desloc)):
 
 print(f"flecha FEM: {desloc_mid[int(len(desloc_mid)/2)]}")
 
-print(f"flecha analítica: {v}")
+print(f"flecha analítica: {v_peso}")
 print('------------------------------------------------------')
 
 # print('Resolução por Lagrange')
