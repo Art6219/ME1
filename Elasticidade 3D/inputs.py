@@ -135,7 +135,7 @@ elif Problema == 3:
       Lz = 4
 
       # Núemero de elementos
-      nz = 2
+      nz = 4
 
       ny = int(nz*Ly/(2*Lz))
       if ny == 0:
@@ -147,7 +147,7 @@ elif Problema == 3:
 
       coord, conect = mesh(Lx, Ly, Lz, nx, ny, nz)
 
-      tipo = 2                                        # Tipo de elemento (1: isoparamétrico trilinear; 2: bolha; 3: CST)
+      tipo = 1                                        # Tipo de elemento (1: isoparamétrico trilinear; 2: bolha; 3: CST)
       ele_type = tipo * np.ones(len(conect))                
 
       nn = len(coord)                     # Número de Nós

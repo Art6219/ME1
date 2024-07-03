@@ -4,8 +4,10 @@ from coordenadas import coordenadas
 from gls_globais import gls_globais
 from N_ti8n import N_ti8n
 from B_ti8n import B_ti8n
+from B_bolha import B_bolha
+from N_bolha import N_bolha
 
-def forca_corpo(rho, g, conect, coord, F):
+def forca_corpo(rho, g, conect, coord, F, ele_type):
 
     b = np.array([0, 0, -rho*g])
 

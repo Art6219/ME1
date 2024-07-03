@@ -24,7 +24,7 @@ def main(coord, conect, Loads, cc, VE, Vv, hip, ele_type, plot_original, plot_de
 
       if peso == True:
 
-            F = forca_corpo(rho, g, conect, coord, F)
+            F = forca_corpo(rho, g, conect, coord, F, ele_type)
    
       Ka, Fa = cc_lagrange(nn, cc, K, F)
       Ua = np.linalg.solve(Ka, Fa)
